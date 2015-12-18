@@ -44,72 +44,72 @@ namespace Metrics.Graphite
             }
             else
             {
-                Send(SubfolderName(name, unit, "Total"), value.Count);
+                Send(SubfolderName(name, unit, "total"), value.Count);
             }
 
             foreach (var item in value.Items)
             {
                 Send(SubfolderName(name, unit, item.Item), item.Count);
-                Send(SubfolderName(name, unit, item.Item, "Percent"), item.Percent);
+                Send(SubfolderName(name, unit, item.Item, "percent"), item.Percent);
             }
         }
 
         protected override void ReportMeter(string name, MeterValue value, Unit unit, TimeUnit rateUnit, MetricTags tags)
         {
-            Send(SubfolderName(name, unit, "Total"), value.Count);
-            Send(SubfolderName(name, AsRate(unit, rateUnit), "Rate-Mean"), value.MeanRate);
-            Send(SubfolderName(name, AsRate(unit, rateUnit), "Rate-1-min"), value.OneMinuteRate);
-            Send(SubfolderName(name, AsRate(unit, rateUnit), "Rate-5-min"), value.FiveMinuteRate);
-            Send(SubfolderName(name, AsRate(unit, rateUnit), "Rate-15-min"), value.FifteenMinuteRate);
+            Send(SubfolderName(name, unit, "total"), value.Count);
+            Send(SubfolderName(name, AsRate(unit, rateUnit), "rate-mean"), value.MeanRate);
+            Send(SubfolderName(name, AsRate(unit, rateUnit), "rate-1-min"), value.OneMinuteRate);
+            Send(SubfolderName(name, AsRate(unit, rateUnit), "rate-5-min"), value.FiveMinuteRate);
+            Send(SubfolderName(name, AsRate(unit, rateUnit), "rate-15-min"), value.FifteenMinuteRate);
 
             foreach (var item in value.Items)
             {
-                Send(SubfolderName(name, unit, item.Item, "Count"), item.Percent);
-                Send(SubfolderName(name, unit, item.Item, "Percent"), item.Value.Count);
-                Send(SubfolderName(name, AsRate(unit, rateUnit), item.Item, "Rate-Mean"), item.Value.MeanRate);
-                Send(SubfolderName(name, AsRate(unit, rateUnit), item.Item, "Rate-1-min"), item.Value.OneMinuteRate);
-                Send(SubfolderName(name, AsRate(unit, rateUnit), item.Item, "Rate-5-min"), item.Value.FiveMinuteRate);
-                Send(SubfolderName(name, AsRate(unit, rateUnit), item.Item, "Rate-15-min"), item.Value.FifteenMinuteRate);
+                Send(SubfolderName(name, unit, item.Item, "count"), item.Percent);
+                Send(SubfolderName(name, unit, item.Item, "percent"), item.Value.Count);
+                Send(SubfolderName(name, AsRate(unit, rateUnit), item.Item, "rate-mean"), item.Value.MeanRate);
+                Send(SubfolderName(name, AsRate(unit, rateUnit), item.Item, "rate-1-min"), item.Value.OneMinuteRate);
+                Send(SubfolderName(name, AsRate(unit, rateUnit), item.Item, "rate-5-min"), item.Value.FiveMinuteRate);
+                Send(SubfolderName(name, AsRate(unit, rateUnit), item.Item, "rate-15-min"), item.Value.FifteenMinuteRate);
             }
         }
 
         protected override void ReportHistogram(string name, HistogramValue value, Unit unit, MetricTags tags)
         {
-            Send(SubfolderName(name, unit, "Count"), value.Count);
-            Send(SubfolderName(name, unit, "Last"), value.LastValue);
-            Send(SubfolderName(name, unit, "Min"), value.Min);
-            Send(SubfolderName(name, unit, "Mean"), value.Mean);
-            Send(SubfolderName(name, unit, "Max"), value.Max);
-            Send(SubfolderName(name, unit, "StdDev"), value.StdDev);
-            Send(SubfolderName(name, unit, "Median"), value.Median);
+            Send(SubfolderName(name, unit, "count"), value.Count);
+            Send(SubfolderName(name, unit, "last"), value.LastValue);
+            Send(SubfolderName(name, unit, "min"), value.Min);
+            Send(SubfolderName(name, unit, "mean"), value.Mean);
+            Send(SubfolderName(name, unit, "max"), value.Max);
+            Send(SubfolderName(name, unit, "stdDev"), value.StdDev);
+            Send(SubfolderName(name, unit, "median"), value.Median);
             Send(SubfolderName(name, unit, "p75"), value.Percentile75);
             Send(SubfolderName(name, unit, "p95"), value.Percentile95);
             Send(SubfolderName(name, unit, "p98"), value.Percentile98);
             Send(SubfolderName(name, unit, "p99"), value.Percentile99);
-            Send(SubfolderName(name, unit, "p99,9"), value.Percentile999);
+            Send(SubfolderName(name, unit, "p99.9"), value.Percentile999);
         }
 
         protected override void ReportTimer(string name, TimerValue value, Unit unit, TimeUnit rateUnit, TimeUnit durationUnit, MetricTags tags)
         {
-            Send(SubfolderName(name, unit, "Count"), value.Rate.Count);
-            Send(SubfolderName(name, unit, "Active_Sessions"), value.ActiveSessions);
+            Send(SubfolderName(name, unit, "count"), value.Rate.Count);
+            Send(SubfolderName(name, unit, "activeSessions"), value.ActiveSessions);
 
-            Send(SubfolderName(name, AsRate(unit, rateUnit), "Rate-Mean"), value.Rate.MeanRate);
-            Send(SubfolderName(name, AsRate(unit, rateUnit), "Rate-1-min"), value.Rate.OneMinuteRate);
-            Send(SubfolderName(name, AsRate(unit, rateUnit), "Rate-5-min"), value.Rate.FiveMinuteRate);
-            Send(SubfolderName(name, AsRate(unit, rateUnit), "Rate-15-min"), value.Rate.FifteenMinuteRate);
+            Send(SubfolderName(name, AsRate(unit, rateUnit), "rate-mean"), value.Rate.MeanRate);
+            Send(SubfolderName(name, AsRate(unit, rateUnit), "rate-1-min"), value.Rate.OneMinuteRate);
+            Send(SubfolderName(name, AsRate(unit, rateUnit), "rate-5-min"), value.Rate.FiveMinuteRate);
+            Send(SubfolderName(name, AsRate(unit, rateUnit), "rate-15-min"), value.Rate.FifteenMinuteRate);
 
-            Send(SubfolderName(name, durationUnit.Unit(), "Duration-Last"), value.Histogram.LastValue);
-            Send(SubfolderName(name, durationUnit.Unit(), "Duration-Min"), value.Histogram.Min);
-            Send(SubfolderName(name, durationUnit.Unit(), "Duration-Mean"), value.Histogram.Mean);
-            Send(SubfolderName(name, durationUnit.Unit(), "Duration-Max"), value.Histogram.Max);
-            Send(SubfolderName(name, durationUnit.Unit(), "Duration-StdDev"), value.Histogram.StdDev);
-            Send(SubfolderName(name, durationUnit.Unit(), "Duration-Median"), value.Histogram.Median);
-            Send(SubfolderName(name, durationUnit.Unit(), "Duration-p75"), value.Histogram.Percentile75);
-            Send(SubfolderName(name, durationUnit.Unit(), "Duration-p95"), value.Histogram.Percentile95);
-            Send(SubfolderName(name, durationUnit.Unit(), "Duration-p98"), value.Histogram.Percentile98);
-            Send(SubfolderName(name, durationUnit.Unit(), "Duration-p99"), value.Histogram.Percentile99);
-            Send(SubfolderName(name, durationUnit.Unit(), "Duration-p999"), value.Histogram.Percentile999);
+            Send(SubfolderName(name, durationUnit.Unit(), "duration-last"), value.Histogram.LastValue);
+            Send(SubfolderName(name, durationUnit.Unit(), "duration-min"), value.Histogram.Min);
+            Send(SubfolderName(name, durationUnit.Unit(), "duration-mean"), value.Histogram.Mean);
+            Send(SubfolderName(name, durationUnit.Unit(), "duration-max"), value.Histogram.Max);
+            Send(SubfolderName(name, durationUnit.Unit(), "duration-stdDev"), value.Histogram.StdDev);
+            Send(SubfolderName(name, durationUnit.Unit(), "duration-median"), value.Histogram.Median);
+            Send(SubfolderName(name, durationUnit.Unit(), "duration-p75"), value.Histogram.Percentile75);
+            Send(SubfolderName(name, durationUnit.Unit(), "duration-p95"), value.Histogram.Percentile95);
+            Send(SubfolderName(name, durationUnit.Unit(), "duration-p98"), value.Histogram.Percentile98);
+            Send(SubfolderName(name, durationUnit.Unit(), "duration-p99"), value.Histogram.Percentile99);
+            Send(SubfolderName(name, durationUnit.Unit(), "duration-p999"), value.Histogram.Percentile999);
         }
 
         protected override void ReportHealth(HealthStatus status)

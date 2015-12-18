@@ -187,7 +187,7 @@ namespace Metrics
             try
             {
                 var configName = ConfigurationManager.AppSettings["Metrics.GlobalContextName"];
-                var name = string.IsNullOrEmpty(configName) ? Process.GetCurrentProcess().ProcessName.Replace('.', '_') : configName;
+                var name = string.IsNullOrEmpty(configName) ? "" : configName;
                 log.Debug(() => "Metrics: GlobalContext Name set to " + name);
                 return name;
             }
